@@ -9,8 +9,8 @@ La bibliothèque cryptography (peut être installée via pip: "`pip install cryp
 
 # Utilisation :
 
-###### Téléchargez ou clonez ce dépôt sur votre ordinateur
+Téléchargez ou clonez ce dépôt sur votre ordinateur
 
-###### Ouvrez un terminal et rendez-vous dans le répertoire du projet
+Ouvrez un terminal et rendez-vous dans le répertoire du projet
 
-###### Copie vos fichier dans le dossier "Encrypt" et execute le script `Encrypt.py`
+Copie vos fichier dans le dossier "Encrypt" et execute le script `Encrypt.py`
