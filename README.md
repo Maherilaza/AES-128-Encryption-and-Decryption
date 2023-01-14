@@ -8,8 +8,9 @@ Python 3
 La bibliothèque cryptography (peut être installée via pip: "`pip install cryptography`")
 
 **Utilisation :**
- Téléchargez ou clonez ce dépôt sur votre ordinateur
 
- Ouvrez un terminal et rendez-vous dans le répertoire du projet
+~~Téléchargez ou clonez ce dépôt sur votre ordinateur
 
-Copie vos fichier dans le dossier "Encrypt" et execute le script `Encrypt.py`
+Ouvrez un terminal et rendez-vous dans le répertoire du projet
+
+Copie vos fichier dans le dossier "Encrypt" et execute le script `Encrypt.py`~~
