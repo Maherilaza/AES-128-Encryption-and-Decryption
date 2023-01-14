@@ -5,7 +5,7 @@
 ## Prérequis :
 
 Python 3
-La bibliothèque cryptography (peut être installée via pip: "`pip install cryptography`")
+La bibliothèque cryptography (peut être installée via pip: "`pip3 install cryptography`")
 
 ## Utilisation :
 
