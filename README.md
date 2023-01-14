@@ -8,7 +8,7 @@ Python 3
 La bibliothèque cryptography (peut être installée via pip: "`pip install cryptography`")
 
 **Utilisation :**
-~~Téléchargez ou clonez ce dépôt sur votre ordinateur~~
+> Téléchargez ou clonez ce dépôt sur votre ordinateur
 
 Ouvrez un terminal et rendez-vous dans le répertoire du projet
 
