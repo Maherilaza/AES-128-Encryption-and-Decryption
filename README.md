@@ -3,9 +3,9 @@
 > This program provides a basic example of how to encrypt and decrypt a file using the AES 128 bit algorithm in Python.
 
 ## Requirements    
-Crypto.Cipher;
+**Crypto.Cipher;**
 
-Crypto.Protocol.KDF
+**Crypto.Protocol.KDF**
 
 > You can install these modules using pip by running `pip install pycrypto` or `pip install cryptography`
 
