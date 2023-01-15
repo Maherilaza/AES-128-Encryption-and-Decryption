@@ -27,4 +27,4 @@ To decrypt a file, run the script and provide the path to the encrypted file. Th
 
 ## Note
 
-It is important to note that this is just a basic example and it is important to ensure that the security of the password is handled appropriately by using secure password generation methods. It is also important to backup your original files before encrypting them and to store the password in a safe place. It is important to check if the paths to your folders are correct and if you have the necessary permissions to create folders and files.
+> It is important to note that this is just a basic example and it is important to ensure that the security of the password is handled appropriately by using secure password generation methods. It is also important to backup your original files before encrypting them and to store the password in a safe place. It is important to check if the paths to your folders are correct and if you have the necessary permissions to create folders and files.
