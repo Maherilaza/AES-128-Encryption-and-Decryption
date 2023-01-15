@@ -1,16 +1,26 @@
-# Cryptage de fichier
+# AES File Encryption and Decryption
 
-> Ce programme permet de chiffrer un fichier à l'aide de l'algorithme > AES-128 en utilisant une clé aléatoire générée. Le fichier chiffré est ensuite stocké dans un dossier spécifié par l'utilisateur.
+> This program provides a basic example of how to encrypt and decrypt a file using the AES 128 bit algorithm in Python.
 
-## Prérequis :
+## Requirements
+. os    
+. random    
+. string    
+. Crypto.Cipher 
+. Crypto.Protocol.KDF   
 
-Python 3
-La bibliothèque cryptography (peut être installée via pip: "`pip3 install cryptography`")
+> You can install these modules using pip by running `pip install pycrypto` or `pip install cryptography`
 
-## Utilisation :
+## Usage
 
-Téléchargez ou clonez ce dépôt sur votre ordinateur
+## Encryption
 
-Ouvrez un terminal et rendez-vous dans le répertoire du projet
+To encrypt a file, run the script and provide the path to the file you want to encrypt. The program will then prompt you to enter a password, which will be used as the encryption key. The encrypted file will be saved in a folder named encrypted with the same file name.
 
-Copie vos fichier dans le dossier "Encrypt" et execute le script `Encrypt.py`
+## Decryption
+
+To decrypt a file, run the script and provide the path to the encrypted file. The program will then prompt you to enter the password used to encrypt the file. The decrypted file will be saved in a folder named decrypted with the same file name.
+
+## Note
+
+It is important to note that this is just a basic example and it is important to ensure that the security of the password is handled appropriately by using secure password generation methods. It is also important to backup your original files before encrypting them and to store the password in a safe place. It is important to check if the paths to your folders are correct and if you have the necessary permissions to create folders and files.
