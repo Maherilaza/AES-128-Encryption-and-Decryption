@@ -1,10 +1,15 @@
 altgraph==0.17.3
 cachetools==5.2.0
+caugetch==0.0.1
 cffi==1.15.1
+clipboard==0.0.4
+colorama==0.4.6
 cryptography==39.0.0
 future==0.18.2
-numpy==1.24.0
+getpass4==0.0.14.1
 pefile==2022.5.30
 pycparser==2.21
+pycryptodome==3.16.0
 pyinstaller-hooks-contrib==2022.14
+pyperclip==1.8.2
 pywin32-ctypes==0.2.0

@@ -1,30 +1,27 @@
 import os
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.backends import default_backend
+from Crypto.Cipher import AES
+from Crypto.Protocol.KDF import PBKDF2
+from getpass import getpass
 
-# Chemin complet du fichier à déchiffrer
-file_path = input("*.")
+file_path = input('Entrez le chemin du fichier à déchiffrer: ')
+password = getpass('Entrez le mot de passe pour déchiffrer le fichier: ')
 
-# Chemin complet du fichier de clé
-key_path = 'Keys/key.bin'
+if os.path.isfile(file_path):
+    with open('Key/key.bin', 'rb') as file:
+        key_file = file.read()
+        salt = key_file[:16]
+        key = key_file[16:]
+    key = PBKDF2(password, salt, dkLen=16, count=10000)
+    cipher = AES.new(key, AES.MODE_CBC)
 
-# Lecture de la clé à partir du fichier
-with open(key_path, 'rb') as key_file:
-    key = key_file.read()
-
-# Initialisation du déchiffreur en mode CTR
-backend = default_backend()
-cipher = Cipher(algorithms.AES(key), modes.CTR(os.urandom(16)), backend=backend)
-decryptor = cipher.decryptor()
-
-# Lecture des données chiffrées à partir du fichier
-with open(file_path, 'rb') as file:
-    ciphered_data = file.read()
-
-# Déchiffrement des données
-data = decryptor.update(ciphered_data) + decryptor.finalize()
-
-# Ecriture des données déchiffrées dans un nouveau fichier
-with open(file_path[:-10], 'wb') as file:
-    file.write(data)
+    with open(file_path, 'rb') as file:
+        ciphertext = file.read()
+        plaintext = cipher.decrypt(ciphertext)
+        padding_length = plaintext[-1]
+        plaintext = plaintext[:-padding_length]
+        os.makedirs('decrypted/', exist_ok=True)
+        with open(f'decrypted/{os.path.basename(file_path)}', 'wb') as file:
+            file.write(plaintext)
+    print(f'Le fichier {file_path} a été déchiffré avec succès et enregistré dans decrypted/.')
+else:
+    print(f"Le fichier {file_path} n'existe pas ou vous avez entré un mauvais mot de passe")

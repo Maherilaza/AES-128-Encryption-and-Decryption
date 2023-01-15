@@ -1,48 +1,43 @@
 import os
-import time
-from shutil import move
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-backend = default_backend()
-salt = os.urandom(16)
-kdf = PBKDF2HMAC(
-    algorithm=hashes.SHA256,
-    length=32,
-    salt=salt,
-    iterations=100000,
-    backend=backend
-)
-key = kdf.derive(b'A_SECRET_PASSWORD')
-folder_path = 'Encrypt'
-key_folder = 'Keys'
-final_folder = 'Encryption finished'
+import random
+import string
+from Crypto.Cipher import AES
+from Crypto.Protocol.KDF import PBKDF2
 
-if not os.path.exists(key_folder):
-    os.makedirs(key_folder)
+# Demander à l'utilisateur de saisir le chemin du fichier à chiffrer
+file_path = input('Entrez le chemin du fichier à chiffrer: ')
 
-if not os.path.exists(final_folder):
-    os.makedirs(final_folder)
+# Générer un mot de passe aléatoire de 16 caractères
+password = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
 
-key_path = os.path.join(key_folder, 'key.bin')
+# Vérifier que le fichier existe
+if os.path.isfile(file_path):
+    # Utiliser PBKDF2 pour générer une clé de chiffrement à partir du mot de passe
+    salt = os.urandom(16)
+    key = PBKDF2(password, salt, dkLen=16, count=10000)
+    # Créer un objet Cipher AES en mode CBC
+    cipher = AES.new(key, AES.MODE_CBC)
 
-with open(key_path, 'wb') as key_file:
-    key_file.write(key)
+    # Ouvrir le fichier en mode binaire
+    with open(file_path, 'rb') as file:
+        # Lire le contenu du fichier
+        plaintext = file.read()
+        # Ajouter des octets de remplissage si nécessaire
+        padding_length = 16 - (len(plaintext) % 16)
+        plaintext += bytes([padding_length]) * padding_length
+        # Chiffrer le contenu du fichier
+        ciphertext = cipher.encrypt(plaintext)
+        # Créer un dossier pour stocker les fichiers chiffrés
+        os.makedirs('encrypted/', exist_ok=True)
+        # Écrire le contenu chiffré dans un nouveau fichier
+        with open(f'encrypted/{os.path.basename(file_path)}', 'wb') as file:
+            file.write(ciphertext)
+    # Créer un dossier pour stocker la clé de chiffrement
+    os.makedirs('Key', exist_ok=True)
+    # Écrire la clé de chiffrement dans un fichier
+    with open('Key/key.bin', 'wb') as file:
+        file.write(salt + key)
+        print(f'Le fichier {file_path} a été chiffré avec succès et enregistré dans /encrypted/, le mot de passe pour le déchiffrer est : {password}')
+else:
+    print(f'Le fichier {file_path} n"existe pas')
 
-cipher = Cipher(algorithms.AES(key), modes.CTR(os.urandom(16)), backend=backend)
-encryptor = cipher.encryptor()
-
-for root, dirs, files in os.walk(folder_path):
-    for file in files:
-        file_path = os.path.join(root, file)
-        with open(file_path, 'rb') as f:
-            data = f.read()
-
-        ciphered_data = encryptor.update(data) + encryptor.finalize()
-
-        with open(file_path + '.encrypted', 'wb') as f:f.write(ciphered_data)
-        move(file_path + '.encrypted', final_folder)
-        os.remove(file_path)
-time.sleep(600)
-os.remove(key_path)
